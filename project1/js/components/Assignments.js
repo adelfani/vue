@@ -7,15 +7,24 @@ export default {
     AssignmentCreate,
   },
   template: `
-    <section class="space-y-6">
-        <assignment-list :assignments="inProgressAssignments" title="In progress"></assignment-list>
-        <assignment-list :assignments="computedAssignments" title="Completed"></assignment-list>
-        <assignment-create @add="add"></assignment-create>
+    <section class="flex gap-8">
+        <assignment-list :assignments="inProgressAssignments" title="In progress">
+          <assignment-create @add="add"></assignment-create>
+        </assignment-list>
+        <assignment-list 
+          v-if="showCompleted"
+          :assignments="computedAssignments" 
+          title="Completed" 
+          canToggle
+          @toggle="showCompleted = !showCompleted"
+        ></assignment-list>
+        
     </section>
     `,
   data() {
     return {
       assignments: [],
+      showCompleted: true,
     };
   },
 
